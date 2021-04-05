@@ -232,7 +232,6 @@ static int surface_ac_probe(struct ssam_device *sdev)
 {
 	const struct spwr_psy_properties *p;
 	struct spwr_ac_device *ac;
-	int status;
 
 	p = ssam_device_get_match_data(sdev);
 	if (!p)
