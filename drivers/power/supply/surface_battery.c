@@ -514,10 +514,10 @@ static int spwr_battery_prop_capacity(struct spwr_battery_device *bat)
 	lockdep_assert_held(&bat->lock);
 
 	if (full_cap == 0 || full_cap == SPWR_BATTERY_VALUE_UNKNOWN)
-		return -ENODEV;
+		return -ENODATA;
 
 	if (remaining_cap == SPWR_BATTERY_VALUE_UNKNOWN)
-		return -ENODEV;
+		return -ENODATA;
 
 	return remaining_cap * 100 / full_cap;
 }
@@ -578,7 +578,7 @@ static int spwr_battery_get_property(struct power_supply *psy, enum power_supply
 		if (value != SPWR_BATTERY_VALUE_UNKNOWN)
 			val->intval = value;
 		else
-			status = -ENODEV;
+			status = -ENODATA;
 		break;
 
 	case POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN:
@@ -586,7 +586,7 @@ static int spwr_battery_get_property(struct power_supply *psy, enum power_supply
 		if (value != SPWR_BATTERY_VALUE_UNKNOWN)
 			val->intval = value * 1000;
 		else
-			status = -ENODEV;
+			status = -ENODATA;
 		break;
 
 	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
@@ -594,7 +594,7 @@ static int spwr_battery_get_property(struct power_supply *psy, enum power_supply
 		if (value != SPWR_BATTERY_VALUE_UNKNOWN)
 			val->intval = value * 1000;
 		else
-			status = -ENODEV;
+			status = -ENODATA;
 		break;
 
 	case POWER_SUPPLY_PROP_CURRENT_NOW:
@@ -603,7 +603,7 @@ static int spwr_battery_get_property(struct power_supply *psy, enum power_supply
 		if (value != SPWR_BATTERY_VALUE_UNKNOWN)
 			val->intval = value * 1000;
 		else
-			status = -ENODEV;
+			status = -ENODATA;
 		break;
 
 	case POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN:
@@ -612,7 +612,7 @@ static int spwr_battery_get_property(struct power_supply *psy, enum power_supply
 		if (value != SPWR_BATTERY_VALUE_UNKNOWN)
 			val->intval = value * 1000;
 		else
-			status = -ENODEV;
+			status = -ENODATA;
 		break;
 
 	case POWER_SUPPLY_PROP_CHARGE_FULL:
@@ -621,7 +621,7 @@ static int spwr_battery_get_property(struct power_supply *psy, enum power_supply
 		if (value != SPWR_BATTERY_VALUE_UNKNOWN)
 			val->intval = value * 1000;
 		else
-			status = -ENODEV;
+			status = -ENODATA;
 		break;
 
 	case POWER_SUPPLY_PROP_CHARGE_NOW:
@@ -630,7 +630,7 @@ static int spwr_battery_get_property(struct power_supply *psy, enum power_supply
 		if (value != SPWR_BATTERY_VALUE_UNKNOWN)
 			val->intval = value * 1000;
 		else
-			status = -ENODEV;
+			status = -ENODATA;
 		break;
 
 	case POWER_SUPPLY_PROP_CAPACITY:
