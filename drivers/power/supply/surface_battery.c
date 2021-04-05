@@ -725,11 +725,6 @@ static void spwr_battery_init(struct spwr_battery_device *bat, struct ssam_devic
 	INIT_DELAYED_WORK(&bat->update_work, spwr_battery_update_bst_workfn);
 }
 
-static void spwr_battery_destroy(struct spwr_battery_device *bat)
-{
-	mutex_destroy(&bat->lock);
-}
-
 static int spwr_battery_register(struct spwr_battery_device *bat)
 {
 	struct power_supply_config psy_cfg = {};
@@ -840,11 +835,7 @@ static int surface_battery_probe(struct ssam_device *sdev)
 	spwr_battery_init(bat, sdev, p->registry, p->name);
 	ssam_device_set_drvdata(sdev, bat);
 
-	status = spwr_battery_register(bat);
-	if (status)
-		spwr_battery_destroy(bat);
-
-	return status;
+	return spwr_battery_register(bat);
 }
 
 static void surface_battery_remove(struct ssam_device *sdev)
@@ -852,7 +843,6 @@ static void surface_battery_remove(struct ssam_device *sdev)
 	struct spwr_battery_device *bat = ssam_device_get_drvdata(sdev);
 
 	spwr_battery_unregister(bat);
-	spwr_battery_destroy(bat);
 }
 
 static const struct spwr_psy_properties spwr_psy_props_bat1 = {
